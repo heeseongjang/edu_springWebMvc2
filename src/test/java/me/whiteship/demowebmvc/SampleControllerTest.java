@@ -21,10 +21,14 @@ public class SampleControllerTest {
 
     @Test
     public void helloTest() throws Exception {
-        mockMvc.perform(get("/hello")
-                        .header(HttpHeaders.FROM, "localhost"))
+        mockMvc.perform(get("/hello"))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+//        mockMvc.perform(get("/hello")
+//                        .header(HttpHeaders.FROM, "localhost"))
+//                .andDo(print())
+//                .andExpect(status().isOk());
 
 //        mockMvc.perform(get("/hello")
 //                        .contentType(MediaType.APPLICATION_JSON_VALUE)
