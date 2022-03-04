@@ -2,7 +2,10 @@ package me.whiteship.demowebmvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class SampleController {
@@ -26,12 +29,13 @@ public class SampleController {
 
     @PostMapping("/events")
     @ResponseBody
-    public Event insertEvent(
-            @RequestParam(required = false, defaultValue = "heeseong") String name,
-            @RequestParam Integer limit) {
-        Event event = new Event();
-        event.setName(name);
-        event.setLimit(limit);
+    public Event insertEvent(@Valid @ModelAttribute Event event, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println("============================");
+            bindingResult.getAllErrors().forEach(e -> System.out.println(e.toString()));
+        }
+        event.setName(event.getName());
+        event.setLimit(event.getLimit());
         return event;
     }
 }
