@@ -8,12 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SampleController {
-    @GetHelloMapping
-    @ResponseBody
-    public String hello() {
-        return "hello";
-    }
-
     @GetMapping("/events")
     @ResponseBody
     public String getEvents() {
