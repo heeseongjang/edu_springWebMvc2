@@ -33,7 +33,7 @@ public class SampleControllerTest {
                         .param("limit", "-10"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("heeseong"));
+                .andExpect(model().hasErrors());
     }
 
     @Test
