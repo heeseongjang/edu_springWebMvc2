@@ -5,11 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("event")
 public class SampleController {
 
     @GetMapping("/events/form")
@@ -32,14 +34,11 @@ public class SampleController {
     @PostMapping("/events")
     public String insertEvent(@Validated @ModelAttribute Event event,
                               BindingResult bindingResult,
-                              Model model) {
+                              SessionStatus sessionStatus) {
         if (bindingResult.hasErrors()) {
             return "/events/form";
         }
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(event);
-        model.addAttribute("eventList", eventList);
-
+        sessionStatus.setComplete();
         return "redirect:/events/list";
     }
 
